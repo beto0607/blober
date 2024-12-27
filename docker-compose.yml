@@ -1,0 +1,29 @@
+services:
+  mongodb:
+    image: mongo
+    container_name: blober-mongodb
+    ports:
+      - '27018:27017'
+    volumes:
+      - blober-mongodb:/data/db
+
+  blober:
+    image: blober-server
+    container_name: blober-server
+    environment:
+      - PORT=8978
+      - MONGODB_URI=mongodb://mongodb:27017
+      - HOST=locahost
+      - ROOT_FOLDER=/var/tmp/blober
+    extra_hosts:
+      - "host.docker.internal:127.0.0.1"
+    ports:
+      - '8978:8978'
+    volumes:
+      - blober-mongodb:/var/tmp
+
+volumes:
+  blober-mongodb:
+    external: true
+  blober-files:
+    external: true
