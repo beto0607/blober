@@ -1,16 +1,17 @@
-package config
+package core
 
 import (
 	"errors"
 	"fmt"
 	"log"
 	"os"
+
+	"beto0607.com/blober/src/config"
+	"beto0607.com/blober/src/utils"
 )
 
-var RootFolder string
-
 func InitFS() error {
-	rootFolder, err := GetEnvVar("ROOT_FOLDER")
+	rootFolder, err := config.GetEnvVar("ROOT_FOLDER")
 
 	if err != nil {
 		rootFolder = "/tmp/blober"
@@ -24,12 +25,7 @@ func InitFS() error {
 	}
 	log.Printf("%s created\n", rootFolder)
 
-	RootFolder = rootFolder
+	utils.RootFolder = rootFolder
 
 	return nil
-}
-
-func ReadFile(subpath string) ([]byte, error) {
-	path := RootFolder + "/" + subpath
-	return os.ReadFile(path)
 }
