@@ -9,9 +9,7 @@ import (
 )
 
 func GetEnvVar(varName string) (string, error) {
-	if err := godotenv.Load(); err != nil {
-		return "", err
-	}
+	_ = godotenv.Load()
 	value, ok := os.LookupEnv(varName)
 	if !ok {
 		erroMessage := fmt.Sprintf("%s not found", varName)
