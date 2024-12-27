@@ -4,8 +4,8 @@ import (
 	"context"
 	"errors"
 	"log"
-	"time"
 
+	"beto0607.com/blober/src/utils"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -38,8 +38,12 @@ func CreateBlobEntity() (*BlobModel, error) {
 	return nil, errors.New("Couldn't retrieve InsertedID")
 }
 
+func UpdateBlobEntity(blob *BlobModel) (*BlobModel, error) {
+	blob.UpdatedAt = utils.UTCTimestamp()
+	return SaveBlobEntity(blob)
+}
+
 func SaveBlobEntity(blob *BlobModel) (*BlobModel, error) {
-	blob.UpdatedAt = time.Now().UTC().String()
 	filter := bson.M{"_id": blob.Id}
 	update := bson.M{"$set": blob}
 	_, err := coll.UpdateOne(context.TODO(), filter, update)
@@ -69,9 +73,27 @@ func FindBlobEntity(id string) (*BlobModel, error) {
 	return &blob, nil
 }
 
+func FindDeletedBlobEntity(id string) (*BlobModel, error) {
+	objectId, err := primitive.ObjectIDFromHex(id)
+
+	if err != nil {
+		return nil, err
+	}
+
+	blob := BlobModel{}
+
+	filter := bson.M{"_id": objectId}
+	err = coll.FindOne(context.TODO(), filter).Decode(&blob)
+
+	if err != nil {
+		return nil, err
+	}
+	return &blob, nil
+}
+
 func DeleteBlobEntity(blob *BlobModel, hardDelete bool) error {
 	if !hardDelete {
-		blob.DeletedAt = time.Now().UTC().String()
+		blob.DeletedAt = utils.UTCTimestamp()
 		_, err := SaveBlobEntity(blob)
 		return err
 	}

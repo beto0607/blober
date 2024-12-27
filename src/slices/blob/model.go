@@ -1,14 +1,14 @@
 package blob_slice
 
 import (
-	"time"
-
+	"beto0607.com/blober/src/utils"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
 type BlobModel struct {
 	Id          primitive.ObjectID `json:"id,omitempty" bson:"_id"`
 	Name        string             `json:"name" validate:"required" bson:"name"`
+	Filename    string             `json:"filename" validate:"required" bson:"filename"`
 	MimeType    string             `json:"mimeType" bson:"mimeType"`
 	Status      string             `json:"status" bson:"status"`
 	SizeInBytes int64              `json:"size" bson:"size"`
@@ -23,11 +23,12 @@ func NewBlobModel() BlobModel {
 	return BlobModel{
 		Id:          primitive.NewObjectID(),
 		Name:        "",
+		Filename:    "",
 		MimeType:    "",
 		Status:      "Creating",
 		SizeInBytes: 0,
 		Path:        "",
 		Parent:      "",
-		CreatedAt:   time.Now().UTC().String(),
+		CreatedAt:   utils.UTCTimestamp(),
 	}
 }
