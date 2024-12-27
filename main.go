@@ -17,6 +17,12 @@ func main() {
 
 	server := initServer()
 
+	err := config.InitFS()
+
+	if err != nil {
+		log.Fatalln("Couldn't init FS")
+	}
+
 	ctx, stop := signal.NotifyContext(context.Background(), syscall.SIGINT, syscall.SIGTERM)
 	defer stop()
 
