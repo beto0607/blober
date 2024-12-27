@@ -28,8 +28,3 @@ func InitFS() error {
 
 	return nil
 }
-
-func ReadFile(subpath string) ([]byte, error) {
-	path := RootFolder + "/" + subpath
-	return os.ReadFile(path)
-}

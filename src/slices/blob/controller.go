@@ -1,4 +1,4 @@
-package controllers
+package blob_slice
 
 import (
 	"io"
@@ -6,7 +6,6 @@ import (
 	"net/http"
 	"time"
 
-	"beto0607.com/blober/src/models"
 	"beto0607.com/blober/src/utils"
 )
 
@@ -17,7 +16,7 @@ func GetBlobMetadata(w http.ResponseWriter, r *http.Request) {
 }
 
 func PostBlob(w http.ResponseWriter, r *http.Request) {
-	entity := models.BlobModel{
+	entity := BlobModel{
 		Name:        "",
 		MimeType:    "",
 		Status:      "Creating",
@@ -81,3 +80,4 @@ func PutBlob(w http.ResponseWriter, r *http.Request) {
 
 func DeleteBlob(w http.ResponseWriter, r *http.Request) {
 }
+

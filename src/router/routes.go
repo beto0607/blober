@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"beto0607.com/blober/src/controllers"
+	blob_slice "beto0607.com/blober/src/slices/blob"
 )
 
 func Route() *http.ServeMux {
@@ -17,19 +18,10 @@ func Route() *http.ServeMux {
 func doApiRouting() *http.ServeMux {
 	log.Println("Doing API routing...")
 	router := http.NewServeMux()
-	blobAPIRouting(router)
+	blob_slice.BlobAPIRouting(router)
 	containerAPIRouting(router)
 
 	return router
-}
-
-func blobAPIRouting(router *http.ServeMux) {
-	router.HandleFunc("GET /blobs/{id}", controllers.GetBlob)
-	router.HandleFunc("GET /blobs/{id}/metadata", controllers.GetBlobMetadata)
-	router.HandleFunc("POST /blobs", controllers.PostBlob)
-	router.HandleFunc("PUT /blobs/{id}", controllers.PutBlob)
-	router.HandleFunc("DELETE /blobs/{id}", controllers.DeleteBlob)
-	log.Println("Blob API added")
 }
 
 func containerAPIRouting(router *http.ServeMux) {
