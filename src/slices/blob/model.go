@@ -1,6 +1,10 @@
 package blob_slice
 
-import "go.mongodb.org/mongo-driver/bson/primitive"
+import (
+	"time"
+
+	"go.mongodb.org/mongo-driver/bson/primitive"
+)
 
 type BlobModel struct {
 	Id          primitive.ObjectID `json:"id,omitempty" bson:"_id"`
@@ -13,4 +17,17 @@ type BlobModel struct {
 	CreatedAt   string             `json:"createdAt,omitempty" bson:"created_at"`
 	UpdatedAt   string             `json:"updatedAt,omitempty" bson:"updated_at"`
 	DeletedAt   string             `json:"deletedAt,omitempty" bson:"deleted_at"`
+}
+
+func NewBlobModel() BlobModel {
+	return BlobModel{
+		Id:          primitive.NewObjectID(),
+		Name:        "",
+		MimeType:    "",
+		Status:      "Creating",
+		SizeInBytes: 0,
+		Path:        "",
+		Parent:      "",
+		CreatedAt:   time.Now().UTC().String(),
+	}
 }
