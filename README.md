@@ -15,7 +15,7 @@ Duplicate and rename the `.env.dev` file to `.env`.
 
 #### Default configuration
 
-- DB server: `mongodb://localhost:27017``
+- DB server: `mongodb://localhost:27017`
 - Root folder: `/var/tmp/blober/` (will be automatically generated)
-- Port: `8978``
+- Port: `8978`
 - Host: `api.blober.local`
