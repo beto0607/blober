@@ -1,4 +1,4 @@
-package models
+package container_slice
 
 import "go.mongodb.org/mongo-driver/bson/primitive"
 
