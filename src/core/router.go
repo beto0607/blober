@@ -1,4 +1,4 @@
-package router
+package core
 
 import (
 	"log"
@@ -8,7 +8,7 @@ import (
 	container_slice "beto0607.com/blober/src/slices/container"
 )
 
-func Route() *http.ServeMux {
+func InitRouting() *http.ServeMux {
 	apiRouter := doApiRouting()
 	router := http.NewServeMux()
 	router.Handle("/api/", http.StripPrefix("/api", apiRouter))
