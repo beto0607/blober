@@ -6,6 +6,7 @@ import (
 
 	blob_slice "beto0607.com/blober/src/slices/blob"
 	container_slice "beto0607.com/blober/src/slices/container"
+	health_slice "beto0607.com/blober/src/slices/health"
 )
 
 func InitRouting() *http.ServeMux {
@@ -18,6 +19,7 @@ func InitRouting() *http.ServeMux {
 func doApiRouting() *http.ServeMux {
 	log.Println("Doing API routing...")
 	router := http.NewServeMux()
+	health_slice.HealthAPIRouting(router)
 	blob_slice.BlobAPIRouting(router)
 	container_slice.ContainerAPIRouting(router)
 
