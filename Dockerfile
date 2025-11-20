@@ -1,7 +1,11 @@
-FROM golang:1.23 AS build
+FROM --platform=$BUILDPLATFORM golang:alpine AS build
+ARG TARGETOS
+ARG TARGETARCH
+
 WORKDIR /app
 COPY . .
-RUN go build -o ./blober .
+
+RUN GOOS=${TARGETOS} GOARCH=${TARGETARCH} go build -o ./blober .
 
 FROM alpine
 COPY --from=build /app/blober .
