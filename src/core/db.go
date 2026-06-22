@@ -26,7 +26,7 @@ func ConnectToDB() {
 		ApplyURI(uri))
 
 	if err != nil {
-		log.Panic("Couldn't create DB client")
+		log.Panic("Couldn't create DB client. Error: " + err.Error())
 	}
 	err = client.Ping(context.Background(), nil)
 	if err != nil {
