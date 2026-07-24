@@ -11,16 +11,9 @@ import (
 
 func InitRouting() *http.ServeMux {
 	apiRouter := doApiRouting()
-	healthRouter := doHealthRouting()
 	router := http.NewServeMux()
 	router.Handle("/api/", http.StripPrefix("/api", apiRouter))
-	router.Handle("/", healthRouter)
-	return router
-}
-
-func doHealthRouting() *http.ServeMux {
-	log.Println("Doing Health routing...")
-	router := http.NewServeMux()
+	router.Handle("/", apiRouter)
 	health_slice.HealthAPIRouting(router)
 	return router
 }
